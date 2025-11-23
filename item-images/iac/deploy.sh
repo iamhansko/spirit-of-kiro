@@ -155,19 +155,19 @@ TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 IMAGE_TAG="${TIMESTAMP}"
 echo "Using image tag: $IMAGE_TAG"
 
-# Get ECR login token and login with Podman
-echo "Logging in to ECR with Podman"
-aws ecr get-login-password | podman login --username AWS --password-stdin "$ECR_REPOSITORY_URI"
+# Get ECR login token and login with Docker
+echo "Logging in to ECR with Docker"
+aws ecr get-login-password | docker login --username AWS --password-stdin "$ECR_REPOSITORY_URI"
 
 if [ $? -ne 0 ]; then
-  echo "Error: Failed to login to ECR with Podman"
+  echo "Error: Failed to login to ECR with Docker"
   exit 1
 fi
 
-# Build the Docker image using Podman
-echo "Building Docker image with Podman"
+# Build the Docker image using Docker
+echo "Building Docker image with Docker"
 cd ..
-podman build -t "$ECR_REPOSITORY_NAME" .
+docker build -t "$ECR_REPOSITORY_NAME" .
 
 if [ $? -ne 0 ]; then
   echo "Error: Failed to build Docker image"
@@ -176,8 +176,8 @@ fi
 
 # Tag the image with the ECR repository URI and timestamp
 echo "Tagging Docker image with timestamp"
-podman tag "$ECR_REPOSITORY_NAME" "$ECR_REPOSITORY_URI:$IMAGE_TAG"
-podman tag "$ECR_REPOSITORY_NAME" "$ECR_REPOSITORY_URI:latest"
+docker tag "$ECR_REPOSITORY_NAME" "$ECR_REPOSITORY_URI:$IMAGE_TAG"
+docker tag "$ECR_REPOSITORY_NAME" "$ECR_REPOSITORY_URI:latest"
 
 if [ $? -ne 0 ]; then
   echo "Error: Failed to tag Docker image"
@@ -186,8 +186,8 @@ fi
 
 # Push the images to ECR
 echo "Pushing Docker images to ECR"
-podman push "$ECR_REPOSITORY_URI:$IMAGE_TAG"
-podman push "$ECR_REPOSITORY_URI:latest"
+docker push "$ECR_REPOSITORY_URI:$IMAGE_TAG"
+docker push "$ECR_REPOSITORY_URI:latest"
 
 if [ $? -ne 0 ]; then
   echo "Error: Failed to push Docker images to ECR"

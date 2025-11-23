@@ -67,18 +67,18 @@ Parameters:
 
   DesiredCount:
     Type: Number
-    Default: 2
+    Default: 6
     Description: Number of task instances to run
 
-  DomainName:
-    Type: String
-    Default: item-images.nathanpeck.gg
-    Description: Domain name for the ALB
+  # DomainName:
+  #   Type: String
+  #   Default: item-images.nathanpeck.gg
+  #   Description: Domain name for the ALB
 
-  CertificateArn:
-    Type: String
-    Default: arn:aws:acm:us-west-2:784059518401:certificate/14770f21-c779-4947-aeb9-df15e77c549e
-    Description: ARN of the ACM certificate
+  # CertificateArn:
+  #   Type: String
+  #   Default: arn:aws:acm:us-west-2:784059518401:certificate/14770f21-c779-4947-aeb9-df15e77c549e
+  #   Description: ARN of the ACM certificate
 
 Resources:
   # ECS Cluster
@@ -240,17 +240,17 @@ Resources:
     Properties:
       GroupDescription: Security group for item-images load balancer
       VpcId: !Ref VpcId
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0
-          Description: Allow inbound HTTP traffic from anywhere
-        - IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-          CidrIp: 0.0.0.0/0
-          Description: Allow inbound HTTPS traffic from anywhere
+      # SecurityGroupIngress:
+      #   - IpProtocol: tcp
+      #     FromPort: 80
+      #     ToPort: 80
+      #     CidrIp: 0.0.0.0/0
+      #     Description: Allow inbound HTTP traffic from anywhere
+      #   - IpProtocol: tcp
+      #     FromPort: 443
+      #     ToPort: 443
+      #     CidrIp: 0.0.0.0/0
+      #     Description: Allow inbound HTTPS traffic from anywhere
       SecurityGroupEgress:
         - IpProtocol: -1
           FromPort: -1
@@ -307,7 +307,7 @@ Resources:
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Name: !Sub "${AWS::StackName}-alb"
+      # Name: !Sub "${AWS::StackName}-alb"
       Subnets: !Ref PublicSubnetIds
       SecurityGroups:
         - !Ref LoadBalancerSecurityGroup
@@ -328,7 +328,7 @@ Resources:
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub "${AWS::StackName}-tg"
+      # Name: !Sub "${AWS::StackName}-tg"
       Port: !Ref ContainerPort
       Protocol: HTTP
       VpcId: !Ref VpcId
@@ -347,35 +347,29 @@ Resources:
       Port: 80
       Protocol: HTTP
       DefaultActions:
-        - Type: redirect
-          RedirectConfig:
-            Protocol: HTTPS
-            Port: '443'
-            Host: !Ref DomainName
-            Path: '/#{path}'
-            Query: '#{query}'
-            StatusCode: HTTP_301
-
-  # HTTPS Listener
-  HTTPSListener:
-    Type: AWS::ElasticLoadBalancingV2::Listener
-    Properties:
-      LoadBalancerArn: !Ref LoadBalancer
-      Port: 443
-      Protocol: HTTPS
-      Certificates:
-        - CertificateArn: !Ref CertificateArn
-      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
-      DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
+
+  # HTTPS Listener
+  # HTTPSListener:
+  #   Type: AWS::ElasticLoadBalancingV2::Listener
+  #   Properties:
+  #     LoadBalancerArn: !Ref LoadBalancer
+  #     Port: 443
+  #     Protocol: HTTPS
+  #     Certificates:
+  #       - CertificateArn: !Ref CertificateArn
+  #     SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  #     DefaultActions:
+  #       - Type: forward
+  #         TargetGroupArn: !Ref TargetGroup
 
   # ECS Service
   Service:
     Type: AWS::ECS::Service
     DependsOn:
      - HttpListener
-     - HTTPSListener
+     # - HTTPSListener
     Properties:
       ServiceName: !Sub "${AWS::StackName}-service"
       Cluster: !Ref ECSCluster
@@ -387,7 +381,7 @@ Resources:
       LaunchType: FARGATE
       NetworkConfiguration:
         AwsvpcConfiguration:
-          AssignPublicIp: ENABLED
+          AssignPublicIp: DISABLED
           SecurityGroups:
             - !Ref ServiceSecurityGroup
           Subnets: !Ref PublicSubnetIds

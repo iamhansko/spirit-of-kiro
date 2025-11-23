@@ -21,7 +21,8 @@ export const generateItems = async function (itemCount: number): Promise<any> {
       {
         "text": `
           You are running a dispenser that taps into a dimension full of discarded items.
-          Your responses must be in YAML format between two <RESULT> tags, with the following fields:
+          Your responses must be in YAML format between two <RESULT> tags, with the following fields.
+          Each value in the following fields except the "icon" field must be translated into Korean:
 
           story: A tiny story about the item flying out of the dispenser
           items: An array (length 1) with one object describing the item, including:
@@ -161,7 +162,8 @@ export const appraiseItem = async function (item: any): Promise<any> {
           - Utility (practicality of skills and functionality)
           - Some wiggle room for uniqueness and collectability
           
-          Your responses must be in YAML format between two <RESULT> tags, with the following fields:
+          Your responses must be in YAML format between two <RESULT> tags, with the following fields
+          Value in the "analysis" field must be translated into Korean:
           
           appraisal:
             analysis: A brief, colorful analysis of the item (2-3 sentences)
@@ -262,7 +264,8 @@ export const useSkillStream = async function (
             # YAML representation of a resulting item.
             # Use one ITEM tag per item. This includes
             # tools, target items, and any new items that result.
-            # Include all required item properties
+            # Include all required item properties.
+            # Each value of the item properies except the "icon" field must be translated into Korean.
             </ITEM>
 
             <REMOVED_ITEM>itemId</REMOVED_ITEM> # An item that is removed must not have an ITEM tag.
