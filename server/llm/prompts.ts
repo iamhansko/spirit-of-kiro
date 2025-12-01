@@ -21,7 +21,8 @@ export const generateItems = async function (itemCount: number): Promise<any> {
       {
         "text": `
           You are running a dispenser that taps into a dimension full of discarded items.
-          Your responses must be in YAML format between two <RESULT> tags, with the following fields:
+          Your responses must be in YAML format between two <RESULT> tags, with the following fields.
+          Each value in the following fields except the "icon" field must be translated into Korean:
 
           story: A tiny story about the item flying out of the dispenser
           items: An array (length 1) with one object describing the item, including:
@@ -161,7 +162,8 @@ export const appraiseItem = async function (item: any): Promise<any> {
           - Utility (practicality of skills and functionality)
           - Some wiggle room for uniqueness and collectability
           
-          Your responses must be in YAML format between two <RESULT> tags, with the following fields:
+          Your responses must be in YAML format between two <RESULT> tags, with the following fields
+          Value in the "analysis" field must be translated into Korean:
           
           appraisal:
             analysis: A brief, colorful analysis of the item (2-3 sentences)
@@ -236,14 +238,14 @@ export const useSkillStream = async function (
             Skills may be destructive or deconstructive. In this case they may destroy tools
             or target items to create new items, for example a destructive "Smash" skill may
             break an item into new pieces that represent broken parts of the item. A deconstructive
-            skill like "Unscrew" skill might cleanly detach a component. A deconstructive
+            skill like "Unscrew" might cleanly detach a component. A deconstructive
             skill like "Cut" might cut off part of an item. Prioritize removing entire named
             components of the target item, for example if smashing a "clock" it might produce
             "bent hands", "clock springs", and "clock face".
 
             Skills may join one item to another item, for example a "Glue" skill or "Screw"
             skill may attach two items to each other, yielding a single new item. Attempt
-            to produce a coherent new item. For example it attaching a "spring" to a "board"
+            to produce a coherent new item. For example attaching a "spring" to a "board"
             that might produce a "mouse trap".
 
             Skills may change the properties of tools or target items, for example "Drill"
@@ -262,7 +264,8 @@ export const useSkillStream = async function (
             # YAML representation of a resulting item.
             # Use one ITEM tag per item. This includes
             # tools, target items, and any new items that result.
-            # Include all required item properties
+            # Include all required item properties.
+            # Each value of the item properies except the "icon" field must be translated into Korean.
             </ITEM>
 
             <REMOVED_ITEM>itemId</REMOVED_ITEM> # An item that is removed must not have an ITEM tag.
@@ -279,7 +282,7 @@ export const useSkillStream = async function (
               icon: short description of item appearance
               materials: array of material types (e.g., ["Ceramic", "Metal"])
               damage: A short description of damaged or missing parts
-              skills[] - length 1 to 3 depending on item state. Add skills to items if they have none, but exceed 5 skills.
+              skills[] - length 1 to 3 depending on item state. Add skills to items if they have none, but do not exceed 5 skills.
                 name: Verb-like action performed by this item on another item, capitalized (e.g., "Absorb", "Deploy", "Smash")
                 description: Corny, adventurous, describes how the verb is performed on it's target
                 targets: Number of targets. Either 0 (targets self), 1 (targets one other item), or 2 (joins two other items)

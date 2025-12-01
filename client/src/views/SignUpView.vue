@@ -1,17 +1,17 @@
 <template>
   <div class="auth-screen">
     <div class="utility-buttons-top">
-      <button class="source-button" @click="openSourceCode">Source</button>
-      <button class="guide-button" @click="openGuide">Guide</button>
+      <button class="source-button" @click="openSourceCode">소스코드</button>
+      <button class="guide-button" @click="openGuide">가이드</button>
     </div>
     <div class="auth-wrapper">
-      <router-link to="/" class="back-link">← Back to Home</router-link>
+      <router-link to="/" class="back-link">← 홈 화면으로 돌아가기</router-link>
       <div class="auth-container">
-        <h1>Sign Up</h1>
+        <h1>신규 계정</h1>
         
         <form @submit.prevent="handleSubmit" class="auth-form">
           <div class="form-group">
-            <label for="username">Email Address</label>
+            <label for="username">이메일 주소</label>
             <input 
               type="text" 
               id="username" 
@@ -22,7 +22,7 @@
           </div>
           
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input 
               type="password" 
               id="password" 
@@ -33,19 +33,19 @@
             />
             <div class="password-requirements">
               <div class="requirement" :class="{ met: passwordValidation.length }">
-                ✓ At least 8 characters
+                ✓ 8 글자 이상
               </div>
               <div class="requirement" :class="{ met: passwordValidation.lowercase }">
-                ✓ Contains lowercase letter
+                ✓ 소문자 포함
               </div>
               <div class="requirement" :class="{ met: passwordValidation.uppercase }">
-                ✓ Contains uppercase letter
+                ✓ 대문자 포함
               </div>
               <div class="requirement" :class="{ met: passwordValidation.number }">
-                ✓ Contains number
+                ✓ 숫자 포함
               </div>
               <div class="requirement" :class="{ met: passwordValidation.symbol }">
-                ✓ Contains symbol
+                ✓ 특수문자 포함
               </div>
             </div>
           </div>
@@ -60,11 +60,11 @@
             :disabled="!isFormValid"
             :class="{ 'disabled': !isFormValid }"
           >
-            Sign Up
+            등록
           </button>
 
           <router-link to="/signin" class="toggle-button">
-            Already have an account? Login
+            이미 계정이 있으신가요? 로그인하기
           </router-link>
         </form>
       </div>

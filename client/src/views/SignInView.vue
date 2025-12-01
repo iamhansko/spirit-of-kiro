@@ -1,17 +1,17 @@
 <template>
   <div class="auth-screen">
     <div class="utility-buttons-top">
-      <button class="source-button" @click="openSourceCode">Source</button>
-      <button class="guide-button" @click="openGuide">Guide</button>
+      <button class="source-button" @click="openSourceCode">소스코드</button>
+      <button class="guide-button" @click="openGuide">가이드</button>
     </div>
     <div class="auth-wrapper">
-      <router-link to="/" class="back-link">← Back to Home</router-link>
+      <router-link to="/" class="back-link">← 홈 화면으로 돌아가기</router-link>
       <div class="auth-container">
-        <h1>Login</h1>
+        <h1>로그인</h1>
         
         <form @submit.prevent="handleSubmit" class="auth-form">
           <div class="form-group">
-            <label for="username">Email Adddress</label>
+            <label for="username">이메일 주소</label>
             <input 
               type="text" 
               id="username" 
@@ -22,7 +22,7 @@
           </div>
           
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input 
               type="password" 
               id="password" 
@@ -37,11 +37,11 @@
           </div>
 
           <button type="submit" class="submit-button">
-            Login
+            접속
           </button>
 
           <router-link to="/signup" class="toggle-button">
-            Need an account? Sign Up
+            계정이 필요하신가요? 신규 등록하기
           </router-link>
         </form>
       </div>

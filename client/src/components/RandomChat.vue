@@ -10,34 +10,34 @@ const DEBOUNCE_TIME = 5000; // 5 seconds debounce
 
 // Array of general shop messages
 const messages = [
-  "Get back to work! We need more items!",
-  "The repair bench is waiting for you!",
-  "Time to fix some more items!",
-  "The shop needs more inventory!",
-  "Customers are waiting for repaired items!",
-  "Don't keep me waiting! Get crafting!",
-  "The repair bench is empty! Get to work!",
-  "We need more items to sell!",
-  "The shelves are looking bare!",
-  "Keep those repairs coming!"
+  "일하러 돌아가! 더 많은 아이템이 필요해!",
+  "작업대가 널 기다리고 있어!",
+  "더 많은 아이템을 제작할 시간이야!",
+  "상점에 더 많은 아이템이 필요해!",
+  "손님이 아이템을 기다리고 있어!",
+  "날 기다리게 하지 마! 제작하러 가!",
+  "작업대가 비어있어! 일하러 가!",
+  "판매할 아이템이 더 필요해!",
+  "작업대가 텅 비어 보이네!",
+  "작업을 계속해!"
 ];
 
 // Array of door messages when holding an item
 const doorMessagesWithItem = [
-  "Ah, a great find! Throw it here!",
-  "Perfect! Hand that over so I can sell it!",
-  "That looks good! Toss it my way!",
-  "I'll take that repaired item off your hands!",
-  "Great work! Now give it to me to sell!"
+  "아, 좋은 물건이네! 이리 던져줘!",
+  "완벽해! 그걸 던져주면 내가 살게!",
+  "좋아 보이는데! 이쪽으로 던져줘!",
+  "던져, 그 아이템을 내가 사갈게!",
+  "잘했어! 이제 그걸 내게 팔아줘!"
 ];
 
 // Array of door messages when not holding an item
 const doorMessagesWithoutItem = [
-  "Why aren't you at the repair bench?",
-  "Get back to work! We need more items!",
-  "The repair bench is waiting for you!",
-  "Don't keep the customers waiting!",
-  "Time to fix some more items!"
+  "왜 작업대에 가지 않아?",
+  "일하러 돌아가! 더 많은 아이템이 필요해!",
+  "작업대가 널 기다리고 있어!",
+  "손님을 기다리게 하지 마!",
+  "더 많은 아이템을 제작할 시간이야!"
 ];
 
 let messageInterval: number | null = null;

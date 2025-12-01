@@ -4,9 +4,9 @@
     <LoadingScreen :progress="gameStore.preloadProgress" />
     <div class="control-buttons">
       <div class="button-row">
-        <button class="debug-button" @click="gameStore.debug = !gameStore.debug">Debug</button>
-        <button class="source-button" @click="openSourceCode">Source</button>
-        <button class="guide-button" @click="openGuide">Guide</button>
+        <button class="debug-button" @click="gameStore.debug = !gameStore.debug">디버그</button>
+        <button class="source-button" @click="openSourceCode">소스코드</button>
+        <button class="guide-button" @click="openGuide">가이드</button>
       </div>
       <div v-if="gameStore.debug" class="physics-indicator" :class="{ active: hasActivePhysics }">Physics</div>
     </div>

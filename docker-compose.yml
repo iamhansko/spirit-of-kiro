@@ -60,13 +60,13 @@ services:
     env_file:
       - dev.env
     environment:
-      AWS_REGION: us-west-2
+      AWS_REGION: us-east-1
       DYNAMODB_ENDPOINT: http://dynamodb-local:8000
       # This ENV VAR enables credentials
       # Set it to "/creds" or "/role/<role name>"
-      AWS_CONTAINER_CREDENTIALS_RELATIVE_URI: "/creds"
+      # AWS_CONTAINER_CREDENTIALS_RELATIVE_URI: "/creds"
       # Enables V3 Metadata
-      ECS_CONTAINER_METADATA_URI: "http://169.254.170.2/v3"
+      # ECS_CONTAINER_METADATA_URI: "http://169.254.170.2/v3"
     networks:
       credentials_network:
         ipv4_address: "169.254.170.4"

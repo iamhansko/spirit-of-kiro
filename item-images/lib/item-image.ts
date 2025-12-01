@@ -1,7 +1,5 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { randomUUID } from 'node:crypto';
-import sharp from 'sharp';
 import { S3_CONFIG, CLOUDFRONT_CONFIG } from '../config';
 import { nearestMatch, storeKeyValue } from '../state/vector-store';
 
@@ -54,14 +52,12 @@ export async function generateImage(prompt) {
 
 export async function uploadToS3(imageData, fileName) {
   // Resize the base64 image to 320x320 pixels
-  const resizedImageBuffer = await sharp(Buffer.from(imageData, 'base64'))
-    .resize(320, 320)
-    .toBuffer();
+  const imageBuffer = Buffer.from(imageData, 'base64');
 
   const params = {
     Bucket: IMAGES_BUCKET_NAME,
     Key: fileName,
-    Body: resizedImageBuffer,
+    Body: imageBuffer,
     ContentType: "image/png",
     CacheControl: "public, max-age=31536000"
   };

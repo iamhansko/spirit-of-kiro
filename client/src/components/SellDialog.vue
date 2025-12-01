@@ -140,11 +140,11 @@ watch(() => visible.value, (newValue) => {
 });
 
 function getHappinessText(happiness: number): string {
-  if (happiness > 50) return 'Absolutely Thrilled!';
-  if (happiness > 0) return 'Quite Pleased';
-  if (happiness === 0) return 'Neutral';
-  if (happiness > -50) return 'Disappointed';
-  return 'Absolutely Disgusted';
+  if (happiness > 50) return '완전히 감격함!';
+  if (happiness > 0) return '살짝 기분이 좋음';
+  if (happiness === 0) return '중립적인 평가';
+  if (happiness > -50) return '실망스러움';
+  return '몹시 불쾌함';
 }
 
 function getAppraiserImage(happiness: number): string {
@@ -154,11 +154,11 @@ function getAppraiserImage(happiness: number): string {
 }
 
 function getAppraiserComment(happiness: number): string {
-  if (happiness > 50) return "What an exceptional find!";
-  if (happiness > 0) return "Not bad at all!";
-  if (happiness === 0) return "Hmm, interesting...";
-  if (happiness > -50) return "Well, it's something...";
-  return "Oh my...";
+  if (happiness > 50) return "아주 훌륭한 물건이네요!!!!";
+  if (happiness > 0) return "꽤 괜찮은데요!";
+  if (happiness === 0) return "음, 흥미롭군요...";
+  if (happiness > -50) return "뭐, 그럭저럭이네요...";
+  return "맙소사...";
 }
 </script>
 
@@ -168,7 +168,7 @@ function getAppraiserComment(happiness: number): string {
       <!-- Loading state -->
       <div v-if="isLoading" class="dialog-content loading-content">
         <div class="appraising-container">
-          <div class="chat-bubble">Hmm... let's see</div>
+          <div class="chat-bubble">흠... 한 번 봅시다</div>
           <img :src="appraisingImage" class="appraising-image" alt="Appraising" />
         </div>
         <div class="table-container">
@@ -223,7 +223,7 @@ function getAppraiserComment(happiness: number): string {
                 {{ getHappinessText(result?.appraisal?.appraisal?.happiness) }}
               </div>
             </div>
-            <button class="done-button" @click="closeDialog">Done</button>
+            <button class="done-button" @click="closeDialog">완료</button>
           </div>
         </div>
       </div>

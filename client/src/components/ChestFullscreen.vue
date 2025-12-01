@@ -94,7 +94,7 @@ onUnmounted(() => {
 <template>
   <div v-if="show" class="fullscreen-overlay">
     <div class="chest-container" :style="{ backgroundImage: `url(${chestImage})` }">
-      <button class="close-button" @click="$emit('close')">Back</button>
+      <button class="close-button" @click="$emit('close')">닫기</button>
       
       <!-- Item Preview Component -->
       <ItemPreview 

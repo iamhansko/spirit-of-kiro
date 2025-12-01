@@ -15,7 +15,7 @@ fi
 
 STACK_PREFIX=$1
 COGNITO_STACK_NAME="${STACK_PREFIX}-cognito"
-REGION=${AWS_REGION:-us-west-2}
+REGION=${AWS_REGION:-us-east-1}
 
 echo "Deploying Cognito resources for stack: $COGNITO_STACK_NAME"
 echo "Region: $REGION"
@@ -65,6 +65,10 @@ cat > dev.env << EOL
 COGNITO_USER_POOL_ID=$COGNITO_USER_POOL_ID
 COGNITO_CLIENT_ID=$COGNITO_CLIENT_ID
 COGNITO_USER_POOL_ARN=$COGNITO_USER_POOL_ARN
+ITEM_IMAGES_SERVICE_URL=https://d2g5rlp2gdus5b.cloudfront.net
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_SESSION_TOKEN=
 EOL
 
 echo "Created .env file with Cognito configuration"

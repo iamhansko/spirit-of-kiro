@@ -25,8 +25,22 @@ const rarityClass = computed(() => {
 
 // Format rarity text for display
 const rarityText = computed(() => {
-  if (!rarityClass.value) return 'Common';
-  return rarityClass.value.replace('item-', '').charAt(0).toUpperCase() + rarityClass.value.replace('item-', '').slice(1);
+  if (!rarityClass.value) return '일반(D)';
+  const classText = rarityClass.value.replace('item-', '').charAt(0).toUpperCase() + rarityClass.value.replace('item-', '').slice(1);
+  switch (classText) {
+    case 'Common':
+      return '일반(B)'
+    case 'Uncommon':
+      return '고급(A)'
+    case 'Rare':
+      return '희귀(A+)'
+    case 'Epic':
+      return '에픽(S)'
+    case 'Legendary':
+      return '전설(S+)'
+    default:
+      return rarityClass.value.replace('item-', '').charAt(0).toUpperCase() + rarityClass.value.replace('item-', '').slice(1);
+  }
 });
 
 // Compute the positioning style based on props without defaults
