@@ -49,8 +49,7 @@ these sounds to play via events that are emitted from all relevant components.
 
 ## Challenge 5: Implement email verification, then password reset
 
-This application uses Amazon Cognito for auth. Cognito requires emails to be verified
-in order to use them as a password reset option.
+This application uses Amazon Cognito. Cognito requires emails to be verified in order to use them as a password reset option.
 
 Currently the application just uses an admin method to verify user accounts
 without verfiying the user's email. This means that password resets
