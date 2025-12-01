@@ -106,7 +106,7 @@ const handleReset = () => {
 <template>
   <div v-if="show" class="fullscreen-overlay">
     <div class="computer-container" :style="{ backgroundImage: `url(${computerImage})` }">
-      <button class="close-button" @click="$emit('close')">Back</button>
+      <button class="close-button" @click="$emit('close')">닫기</button>
       
       <!-- Item Preview Component -->
       <BuyPreview 

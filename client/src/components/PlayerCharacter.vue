@@ -356,7 +356,7 @@ watch(() => heldItemId.value, (newValue) => {
   if (newValue) {
     // Player is now holding an item, show the hint
     gameStore.emitEvent('hint', {
-      message: "<b>T</b> - Throw<br><b>I</b> - Inspect",
+      message: "<b>T</b> - 던지기<br><b>I</b> - 조사하기",
       duration: 0 // 0 means it stays until cleared
     });
   } else {

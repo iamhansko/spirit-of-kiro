@@ -384,7 +384,7 @@ watch(() => props.show, (newValue) => {
 <template>
   <div v-if="show" class="fullscreen-overlay">
     <div class="workbench-container" :style="{ backgroundImage: `url(${workbenchImage})` }">
-      <button class="close-button" @click="$emit('close')">Back</button>
+      <button class="close-button" @click="$emit('close')">닫기</button>
 
       <!-- Item Preview Component -->
       <ItemPreview v-if="hoveredItem" :item="hoveredItem" position="fixed" :style="{

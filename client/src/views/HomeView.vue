@@ -15,14 +15,14 @@ const openGuide = () => {
         <img src="../assets/kiro-ghost/south.png" alt="Ghost" class="ghost-image" />
         <div class="hero-text">
           <h1>Spirit of Kiro</h1>
-          <p class="tagline">Imagine endless possibilities</p>
+          <p class="tagline">무한한 가능성을 상상해 보세요</p>
           <div class="button-group">
             <router-link to="/play" class="play-button">
-              Start Exploring
+              탐험 시작하기
             </router-link>
             <div class="utility-buttons">
-              <button class="source-button" @click="openSourceCode">Source</button>
-              <button class="guide-button" @click="openGuide">Guide</button>
+              <button class="source-button" @click="openSourceCode">소스코드</button>
+              <button class="guide-button" @click="openGuide">가이드</button>
             </div>
           </div>
         </div>
@@ -31,27 +31,27 @@ const openGuide = () => {
 
     <div class="content">
       <div class="section">
-        <p class="large-text">Every item tells a story. Every discovery reveals a new world. Step into a realm where forgotten objects find new purpose.</p>
+        <p class="large-text">모든 아이템에는 이야기가 있습니다. 모든 발견은 새로운 세상을 밝힙니다. 잊혀진 아이템들이 새로운 의미를 찾는 마법의 세계로 당신을 초대합니다.</p>
       </div>
 
       <div class="features">
         <div class="feature">
-          <h3>Unique Treasures</h3>
-          <p>Every AI generated item is unique. Each discovery is yours alone.</p>
+          <h3>진귀한 보물</h3>
+          <p>AI가 생성하는 모든 아이템은 유일무이합니다. 모든 발견은 오직 당신만의 것입니다.</p>
         </div>
         <div class="feature">
-          <h3>Infinite Crafting</h3>
-          <p>Combine items into complex creations or break them down to their quantum essence.</p>
+          <h3>영원한 연금술</h3>
+          <p>아이템들을 결합해 정교한 작품을 만들거나, 분해해서 태초의 정수까지 되돌리세요.</p>
         </div>
         <div class="feature">
-          <h3>Dynamic Interactions</h3>
-          <p>Watch as your discoveries come alive with unexpected behaviors and reactions.</p>
+          <h3>다이나믹한 상호작용</h3>
+          <p>당신의 발견이 전혀 예상치 못한 행동과 반응으로 생생하게 살아나는 모습을 지켜보세요.</p>
         </div>
       </div>
 
       <div class="section">
         <h2>Your journey awaits.</h2>
-        <p class="large-text">Collect. Examine. Transform. Every action shapes your experience in this ever-evolving workshop.</p>
+        <p class="large-text">수집하세요. 조사하세요. 변형하세요. 당신의 행동에 따라 공방은 끊임없이 진화합니다.</p>
       </div>
     </div>
   </div>
