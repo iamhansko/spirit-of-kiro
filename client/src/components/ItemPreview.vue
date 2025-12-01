@@ -29,15 +29,15 @@ const rarityText = computed(() => {
   const classText = rarityClass.value.replace('item-', '').charAt(0).toUpperCase() + rarityClass.value.replace('item-', '').slice(1);
   switch (classText) {
     case 'Common':
-      return '일반(D)'
+      return '일반(B)'
     case 'Uncommon':
-      return '고급(C)'
+      return '고급(A)'
     case 'Rare':
-      return '희귀(B)'
+      return '희귀(A+)'
     case 'Epic':
-      return '에픽(A)'
+      return '에픽(S)'
     case 'Legendary':
-      return '전설(S)'
+      return '전설(S+)'
     default:
       return rarityClass.value.replace('item-', '').charAt(0).toUpperCase() + rarityClass.value.replace('item-', '').slice(1);
   }

@@ -144,7 +144,7 @@ function getHappinessText(happiness: number): string {
   if (happiness > 0) return '살짝 기분이 좋음';
   if (happiness === 0) return '중립적인 평가';
   if (happiness > -50) return '실망스러움';
-  return 'Absolutely Disgusted';
+  return '몹시 불쾌함';
 }
 
 function getAppraiserImage(happiness: number): string {
@@ -158,7 +158,7 @@ function getAppraiserComment(happiness: number): string {
   if (happiness > 0) return "꽤 괜찮은데요!";
   if (happiness === 0) return "음, 흥미롭군요...";
   if (happiness > -50) return "뭐, 그럭저럭이네요...";
-  return "Oh my...";
+  return "맙소사...";
 }
 </script>
 
@@ -168,7 +168,7 @@ function getAppraiserComment(happiness: number): string {
       <!-- Loading state -->
       <div v-if="isLoading" class="dialog-content loading-content">
         <div class="appraising-container">
-          <div class="chat-bubble">Hmm... let's see</div>
+          <div class="chat-bubble">흠... 한 번 봅시다</div>
           <img :src="appraisingImage" class="appraising-image" alt="Appraising" />
         </div>
         <div class="table-container">
