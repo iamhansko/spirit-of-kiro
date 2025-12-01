@@ -5,11 +5,11 @@
         <div class="tutorial-card">
           <div class="tutorial-image ghost-image"></div>
           <div class="tutorial-tips">
-            <h2>Movement & Interaction</h2>
+            <h2>이동 및 상호작용</h2>
             <ul>
-              <li><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span> keys to move around</li>
-              <li><span class="keycap">E</span> key to interact</li>
-              <li><span class="keycap">T</span> key to throw held items</li>
+              <li><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span> 키로 이동</li>
+              <li><span class="keycap">E</span> 키로 아이템과 상호작용</li>
+              <li><span class="keycap">T</span> 키로 아이템 던지기</li>
             </ul>
           </div>
         </div>
@@ -17,11 +17,11 @@
         <div class="tutorial-card">
           <div class="tutorial-image dispenser-image"></div>
           <div class="tutorial-tips">
-            <h2>Discover discarded items</h2>
+            <h2>버려진 아이템 발견하기</h2>
             <ul>
-              <li>Use <span class="keycap">E</span> to interact with the red "PULL" lever</li>
-              <li>Pick up items with <span class="keycap">E</span> and inspect them with <span class="keycap">I</span></li>
-              <li>While carrying an item, use <span class="keycap">E</span> to put it in a chest or workbench</li>
+              <li><span class="keycap">E</span> 키로 빨간색 "PULL" 레버와 상호작용</li>
+              <li><span class="keycap">E</span> 키로 아이템 줍기, <span class="keycap">I</span> 키로 검사하기</li>
+              <li>아이템을 들고 있을 때 <span class="keycap">E</span> 키로 보관함나 작업대에 넣기</li>
             </ul>
           </div>
         </div>
@@ -29,12 +29,12 @@
         <div class="tutorial-card">
           <div class="tutorial-image workbench-image"></div>
           <div class="tutorial-tips">
-            <h2>Craft at the workbench</h2>
+            <h2>아이템 제작하기</h2>
             <ul>
-              <li>Carry an item to the workbench, then use <span class="keycap">E</span> to place it</li>
-              <li>Drag items up to the tool wall or down to the working area</li>
-              <li>Click an item on the tool wall to cast one of it's quirks</li>
-              <li>Click targets for the quirk, down in the working area</li>
+              <li>아이템을 작업대로 가져가서 <span class="keycap">E</span> 키로 배치</li>
+              <li>아이템을 도구 벽으로 드래그하거나 아래 작업 영역으로 드래그</li>
+              <li>도구 벽의 아이템을 클릭하여 특성 중 하나 사용</li>
+              <li>대상(Target) 필요 시, 작업 영역에서 원하는 아이템을 클릭</li>
             </ul>
           </div>
         </div>
@@ -42,18 +42,18 @@
         <div class="tutorial-card">
           <div class="tutorial-image shopkeeper-image"></div>
           <div class="tutorial-tips">
-            <h2>Sell your creations</h2>
+            <h2>아이템 판매하기</h2>
             <ul>
-              <li>Throw items out of the door to the shop keeper</li>
-              <li>The shop keeper pays more for fun, unusual, and rare items</li>
-              <li>Check the computer to buy items from other shops</li>
-              <li>Not ready to sell? Store your treasures in the chest</li>
+              <li>문 밖으로 아이템을 던져 상점 주인에게 전달</li>
+              <li>상점 주인은 재미있고 독특하며 희귀한 아이템에 더 많은 돈을 지불</li>
+              <li>컴퓨터를 확인하여 다른 상점에서 아이템 구매</li>
+              <li>아직 판매할 준비가 안 됐다면? 아이템을 보관함에 두기</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <button class="close-button" @click="closeTutorial">Got it!</button>
+      <button class="close-button" @click="closeTutorial">확인</button>
     </div>
   </div>
 </template>

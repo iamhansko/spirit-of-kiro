@@ -14,7 +14,7 @@ const openGuide = () => {
       <div class="hero-content">
         <div class="hero-text">
           <h1>Spirit of Kiro</h1>
-          <p class="tagline">무한한 가능성을 상상해 보세요</p>
+          <p class="tagline">Imagine endless possibilities</p>
           <div class="button-group">
             <router-link to="/play" class="play-button">
               탐험 시작하기
@@ -30,7 +30,7 @@ const openGuide = () => {
 
     <div class="content">
       <div class="section">
-        <p class="large-text">모든 아이템에는 이야기가 있습니다. 모든 발견은 새로운 세상을 밝힙니다. 잊혀진 아이템들이 새로운 의미를 찾는 마법의 세계로 당신을 초대합니다.</p>
+        <p class="large-text">모든 아이템에는 이야기가 있습니다. 당신의 모든 발견은 새로운 세상을 밝힙니다. 잊혀진 아이템들이 새로운 의미를 찾는 마법의 세계로 당신을 초대합니다.</p>
       </div>
 
       <div class="features">
@@ -49,7 +49,7 @@ const openGuide = () => {
       </div>
 
       <div class="section">
-        <h2>Your journey awaits.</h2>
+        <h2>모험이 당신을 기다립니다</h2>
         <p class="large-text">수집하세요. 조사하세요. 변형하세요. 당신의 행동에 따라 공방은 끊임없이 진화합니다.</p>
       </div>
     </div>
