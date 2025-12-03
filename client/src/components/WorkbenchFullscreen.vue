@@ -413,12 +413,12 @@ watch(() => props.show, (newValue) => {
 
           <!-- Empty grid prompt message -->
           <div v-if="isToolGridEmpty" class="empty-grid-prompt">
-            Drag an item here to use as a tool
+            아이템을 이곳에 드래그하고 클릭한 후, 상호작용을 선택하세요
           </div>
           
           <!-- Full area indicator -->
           <div v-if="dropTargetFull === 'tools'" class="full-area-prompt">
-            Tool area is full (32/32)
+            아이템이 가득 찼습니다 (32/32)
           </div>
         </div>
       </div>
@@ -475,7 +475,7 @@ watch(() => props.show, (newValue) => {
         
         <!-- Full area indicator -->
         <div v-if="dropTargetFull === 'working'" class="full-area-prompt">
-          Working area is full (5/5)
+          아이템이 가득 찼습니다 (5/5)
         </div>
       </div>
 

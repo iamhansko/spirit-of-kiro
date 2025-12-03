@@ -90,7 +90,7 @@ const positionStyle = computed(() => {
         <p class="item-description">{{ item.description || 'No description available.' }}</p>
 
         <div class="item-skills" v-if="item.skills && item.skills.length > 0">
-          <h4>Quirks:</h4>
+          <h4>개성:</h4>
           <div v-for="(skill, index) in item.skills" :key="index" class="skill-item">
             <div class="skill-header">
               <div class="skill-name">{{ skill.name }}</div>

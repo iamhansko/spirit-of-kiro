@@ -118,7 +118,7 @@ watch(() => visible.value, (newValue) => {
           <p class="item-description">{{ currentItem?.description || 'No description available.' }}</p>
           
           <div class="item-skills">
-            <h4>Quirks:</h4>
+            <h4>개성:</h4>
             <div v-for="(skill, index) in currentItem.skills" :key="index" class="skill-item">
               <div class="skill-header">
                 <div class="skill-name">{{ skill.name }}</div>
