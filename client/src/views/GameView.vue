@@ -8,7 +8,7 @@
         <button class="source-button" @click="openSourceCode">소스코드</button>
         <button class="guide-button" @click="openGuide">가이드</button>
       </div>
-      <div v-if="gameStore.debug" class="physics-indicator" :class="{ active: hasActivePhysics }">Physics</div>
+      <div v-if="gameStore.debug" class="physics-indicator" :class="{ active: hasActivePhysics }">물리 시스템</div>
     </div>
     <div class="game-container" :style="{ width: `${tileSize * gridSize}px`, height: `${tileSize * gridSize}px` }">
       <GameGrid :grid-size="gridSize" :tile-size="tileSize" />
