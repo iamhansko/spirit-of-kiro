@@ -3,6 +3,7 @@ node_modules
 .aiEditorAgentDebug
 .DS_Store
 .vscode/
+.kiro/
 bun-tests.xml
 docker
 .odo
