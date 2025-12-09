@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
 import dispenserImage from '../assets/chute.png';
 import panel from '../assets/panel-background.png';
 import { useGameStore } from '../stores/game';
@@ -20,16 +20,28 @@ const isPulling = ref(false);
 const isShaking = ref(false);
 const gameStore = useGameStore();
 
-// Progress bar variables
-const showProgressBar = ref(false);
+// Progress bar variables - now synchronized with isGeneratingItem
+const showProgressBar = computed(() => gameStore.isGeneratingItem);
 const progress = ref(0);
 let progressInterval: number | null = null;
+
+// Watch for lock release to reset progress bar
+watch(() => gameStore.isGeneratingItem, (isGenerating) => {
+  if (!isGenerating) {
+    // Lock released - hide progress bar and reset
+    progress.value = 0;
+    if (progressInterval) {
+      clearInterval(progressInterval);
+      progressInterval = null;
+    }
+  }
+});
 
 // Function to animate the progress over 20 seconds
 function startProgressAnimation() {
   // Reset progress
   progress.value = 0;
-  showProgressBar.value = true;
+  // Note: showProgressBar is now a computed property based on isGeneratingItem
   
   // Clear any existing interval
   if (progressInterval) {
@@ -58,6 +70,7 @@ function handleLeverPulled() {
   isShaking.value = true;
   
   // Start the progress animation
+  // Note: showProgressBar is now controlled by isGeneratingItem state
   startProgressAnimation();
 }
 
@@ -111,14 +124,18 @@ function spawnItemGameObject(data: any) {
   // Stop the shake animation after the item is spawned
   isShaking.value = false;
   
-  // Hide the progress bar when the item is spawned
-  showProgressBar.value = false;
+  // Note: showProgressBar is now a computed property and will automatically hide
+  // when completeItemGeneration() is called below
   
   // Clear any existing interval
   if (progressInterval) {
     clearInterval(progressInterval);
     progressInterval = null;
   }
+  
+  // Release the item generation lock
+  // This will automatically hide the progress bar via the computed property
+  gameStore.completeItemGeneration();
 }
 
 let leverPulledListenerId: string;

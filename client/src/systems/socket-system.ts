@@ -20,6 +20,12 @@ export class SocketSystem {
   // Wildcard character for event pattern matching
   private readonly wildcardChar: string = '*'
 
+  // Item generation lock
+  private isGeneratingItem: Ref<boolean> | null = null
+  private startItemGeneration: (() => void) | null = null
+  private completeItemGeneration: (() => void) | null = null
+  private cancelItemGeneration: (() => void) | null = null
+
   constructor(
     ws: Ref<WebSocket | null>,
     wsConnected: Ref<boolean>,
@@ -29,6 +35,22 @@ export class SocketSystem {
     this.wsConnected = wsConnected
     this.isAuthenticated = isAuthenticated
     this.eventListeners = new Map()
+  }
+
+  /**
+   * Set the item generation lock state and functions
+   * This should be called by GameStore after SocketSystem is instantiated
+   */
+  setItemGenerationLock(
+    isGeneratingItem: Ref<boolean>,
+    startItemGeneration: () => void,
+    completeItemGeneration: () => void,
+    cancelItemGeneration: () => void
+  ) {
+    this.isGeneratingItem = isGeneratingItem
+    this.startItemGeneration = startItemGeneration
+    this.completeItemGeneration = completeItemGeneration
+    this.cancelItemGeneration = cancelItemGeneration
   }
 
   initWebSocket() {
@@ -65,6 +87,12 @@ export class SocketSystem {
       this.isAuthenticated.value = false
       console.log('WebSocket disconnected', event)
 
+      // Release item generation lock if active using cancelItemGeneration
+      if (this.isGeneratingItem && this.isGeneratingItem.value && this.cancelItemGeneration) {
+        console.warn('WebSocket disconnected during item generation, canceling lock')
+        this.cancelItemGeneration()
+      }
+
       // Clear ping interval
       this.clearPingInterval()
 
@@ -84,6 +112,14 @@ export class SocketSystem {
 
         if (data.type === 'signin_success' || data.type === 'signup_success') {
           this.isAuthenticated.value = true
+        }
+
+        // Handle error responses - release item generation lock if active
+        if (data.type === 'error') {
+          if (this.isGeneratingItem && this.isGeneratingItem.value && this.completeItemGeneration) {
+            console.warn('Error received during item generation, releasing lock:', data.body)
+            this.completeItemGeneration()
+          }
         }
 
         this.emitEvent(data.type, data.body)
@@ -189,6 +225,17 @@ export class SocketSystem {
     if (!this.ws.value || !this.isAuthenticated.value) {
       console.error('Cannot pull item: not connected or not authenticated')
       return
+    }
+
+    // Check if item generation is already in progress
+    if (this.isGeneratingItem && this.isGeneratingItem.value) {
+      console.warn('Item generation already in progress, ignoring pull request')
+      return
+    }
+
+    // Start item generation lock
+    if (this.startItemGeneration) {
+      this.startItemGeneration()
     }
 
     const message = {
@@ -371,6 +418,12 @@ export class SocketSystem {
 
     // Reset authentication state before reconnecting
     this.isAuthenticated.value = false
+
+    // Initialize lock state on reconnection
+    if (this.isGeneratingItem && this.isGeneratingItem.value && this.cancelItemGeneration) {
+      console.warn('Reconnecting with active item generation lock, canceling lock')
+      this.cancelItemGeneration()
+    }
 
     // Close existing connection if any
     if (this.ws.value && (this.ws.value.readyState === WebSocket.OPEN || this.ws.value.readyState === WebSocket.CONNECTING)) {

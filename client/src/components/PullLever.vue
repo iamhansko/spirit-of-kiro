@@ -32,7 +32,7 @@ const gameStore = useGameStore();
 const localInventory = ref<Item[]>([]);
 
 function handlePlayerInteraction() {
-  if (!props.playerIsNear || isPulling.value || isRotating.value) {
+  if (!props.playerIsNear || isPulling.value || isRotating.value || gameStore.isGeneratingItem) {
     return;
   }
 
@@ -180,7 +180,7 @@ onUnmounted(() => {
     border: gameStore.debug ? '1px solid red': 'none',
     zIndex: 10
   }">
-    <div v-if="playerIsNear && !isPulling && !isPulled" class="interact-prompt">E</div>
+    <div v-if="playerIsNear && !isPulling && !isPulled && !gameStore.isGeneratingItem" class="interact-prompt">E</div>
     <img 
       :src="leverImage" 
       :height="depth * tileSize"

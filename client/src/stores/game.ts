@@ -28,6 +28,10 @@ export const useGameStore = defineStore('game', () => {
   const interactionLocked = ref(false)
   const hasActivePhysics = ref(false)
 
+  // Item generation lock state
+  const isGeneratingItem = ref(false)
+  const itemGenerationTimeoutId = ref<number | null>(null)
+
   // Preloader state
   const preloadProgress = ref<PreloadProgress>({
     total: 0,
@@ -53,6 +57,43 @@ export const useGameStore = defineStore('game', () => {
   // Initialize preloader system
   const preloaderSystem = new PreloaderSystem(socketSystem, preloadProgress, isInitialLoadComplete)
 
+  // Item generation lock constants
+  const ITEM_GENERATION_TIMEOUT = 60000 // 60 seconds
+
+  // Item generation lock actions
+  function startItemGeneration() {
+    if (isGeneratingItem.value) {
+      console.warn('Item generation already in progress')
+      return
+    }
+
+    isGeneratingItem.value = true
+
+    // Set timeout to automatically release lock after 60 seconds
+    itemGenerationTimeoutId.value = window.setTimeout(() => {
+      console.error('Item generation timed out')
+      completeItemGeneration()
+      socketSystem.emitEvent('item-generation-timeout')
+    }, ITEM_GENERATION_TIMEOUT)
+  }
+
+  function completeItemGeneration() {
+    isGeneratingItem.value = false
+
+    // Clear timeout if it exists
+    if (itemGenerationTimeoutId.value !== null) {
+      clearTimeout(itemGenerationTimeoutId.value)
+      itemGenerationTimeoutId.value = null
+    }
+  }
+
+  function cancelItemGeneration() {
+    completeItemGeneration()
+  }
+
+  // Set item generation lock on socket system
+  socketSystem.setItemGenerationLock(isGeneratingItem, startItemGeneration, completeItemGeneration, cancelItemGeneration)
+
   return {
     // State
     ws,
@@ -67,6 +108,10 @@ export const useGameStore = defineStore('game', () => {
     heldItemId,
     personaData,
     focusedComponent: focusSystem.focusedComponentRef,
+
+    // Item generation lock state
+    isGeneratingItem,
+    itemGenerationTimeoutId,
 
     // Focus management
     pushFocus: focusSystem.pushFocus.bind(focusSystem),
@@ -115,5 +160,10 @@ export const useGameStore = defineStore('game', () => {
 
     // Preloader actions
     preloadStaticAssets: preloaderSystem.preloadStaticAssets.bind(preloaderSystem),
+
+    // Item generation lock actions
+    startItemGeneration,
+    completeItemGeneration,
+    cancelItemGeneration,
   }
 })
