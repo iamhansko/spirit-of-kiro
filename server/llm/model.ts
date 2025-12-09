@@ -6,11 +6,10 @@ const bedrockClient = new BedrockRuntimeClient({
 });
 
 // Model fallback configuration
-type ModelId = 'global.anthropic.claude-sonnet-4-20250514-v1:0' | 'global.anthropic.claude-3-7-sonnet-20250219-v1:0' | 'global.amazon.nova-pro-v1:0';
+type ModelId = 'global.anthropic.claude-sonnet-4-5-20250929-v1:0' | 'global.anthropic.claude-sonnet-4-20250514-v1:0';
 const MODELS: ModelId[] = [
-  //'global.anthropic.claude-sonnet-4-20250514-v1:0',
-  'global.anthropic.claude-3-7-sonnet-20250219-v1:0',
-  'global.amazon.nova-pro-v1:0'
+  'global.anthropic.claude-sonnet-4-5-20250929-v1:0',
+  'global.anthropic.claude-sonnet-4-20250514-v1:0'
 ];
 
 // Track model fallback state
