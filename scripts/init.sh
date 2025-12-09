@@ -27,8 +27,11 @@ chmod +x ./scripts/deploy-cognito.sh
 docker compose down || true
 docker compose build
 nohup docker compose up --watch --remove-orphans --timeout 0 --force-recreate > /dev/null &
-sleep 5
-echo -e "${GREEN}도커 컨테이너가 실행되었습니다.${NC}"
+echo -e "${YELLOW}도커 컨테이너가 준비될 때까지 대기 중입니다...${NC}"
+until docker exec server bash -c "echo 'Healthy'" &> /dev/null; do
+  sleep 5
+done
+echo -e "${GREEN}도커 컨테이너가 실행되었습니다${NC}"
 sleep 5
 docker exec server bash -c "mkdir -p /app/server/iac" &&
 docker cp scripts/bootstrap-local-dynamodb.js server:/app/ &&

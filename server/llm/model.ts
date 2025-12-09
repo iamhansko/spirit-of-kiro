@@ -2,13 +2,16 @@ import { BedrockRuntimeClient, ConverseCommand, ConverseStreamCommand } from '@a
 
 // Initialize the Bedrock client
 const bedrockClient = new BedrockRuntimeClient({
-  region: 'us-west-2', // Update with your preferred AWS region
+  region: 'us-east-1', // Update with your preferred AWS region
 });
 
 // Model fallback configuration
-type ModelId = 'global.anthropic.claude-sonnet-4-5-20250929-v1:0' | 'global.anthropic.claude-sonnet-4-20250514-v1:0' | 'global.anthropic.claude-3-7-sonnet-20250219-v1:0' | 'global.amazon.nova-pro-v1:0';
+type ModelId = 'global.anthropic.claude-sonnet-4-5-20250929-v1:0' | 'global.anthropic.claude-sonnet-4-20250514-v1:0' | 'us.anthropic.claude-3-7-sonnet-20250219-v1:0' | 'us.anthropic.claude-3-5-sonnet-20241022-v2:0';
 const MODELS: ModelId[] = [
-  'global.anthropic.claude-sonnet-4-5-20250929-v1:0'
+  'global.anthropic.claude-sonnet-4-5-20250929-v1:0',
+  'global.anthropic.claude-sonnet-4-20250514-v1:0',
+  'us.anthropic.claude-3-7-sonnet-20250219-v1:0',
+  'us.anthropic.claude-3-5-sonnet-20241022-v2:0'
 ];
 
 // Track model fallback state
