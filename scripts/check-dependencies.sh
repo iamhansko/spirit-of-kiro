@@ -14,28 +14,29 @@ print_instructions() {
     echo -e "$1"
 }
 
-# Check for Docker or Podman
 if command -v docker &> /dev/null; then
     echo -e "${GREEN}✓ Docker is installed${NC}"
     docker_version=$(docker --version)
     echo "  Version: $docker_version"
-elif command -v podman &> /dev/null; then
-    echo -e "${GREEN}✓ Podman is installed${NC}"
-    podman_version=$(podman --version)
-    echo "  Version: $podman_version"
+    CONTAINER_CMD="docker"
+elif command -v finch &> /dev/null; then
+    echo -e "${GREEN}✓ Finch is installed${NC}"
+    finch_version=$(finch --version)
+    echo "  Version: $finch_version"
+    CONTAINER_CMD="finch"
 else
-    echo -e "${RED}✗ Neither Docker nor Podman is installed${NC}"
-    print_instructions "1. Install Docker Desktop:
+    echo -e "${RED}✗ No container runtime (Docker or Finch) is installed${NC}"
+    print_instructions "A. Install Docker Desktop:
    - Visit https://www.docker.com/products/docker-desktop
    - Download and install for your operating system
    - Start Docker Desktop after installation
 
 OR
 
-2. Install Podman:
-   - macOS: brew install podman
-   - Linux: Use your distribution's package manager
-   - Windows: Use WSL2 and install via package manager"
+B. Install Finch:
+    - Visit https://github.com/runfinch/finch
+    - Download and install for your operating system"
+    
     exit 1
 fi
 
@@ -81,7 +82,9 @@ echo "Checking AWS Bedrock model access..."
 
 # List of required models
 required_models=(
-    "anthropic.claude-sonnet-4-5-20250929-v1:0"
+    "amazon.nova-pro"
+    "anthropic.claude-3-sonnet-20240229"
+    "anthropic.claude-3-sonnet-20240229-v1:0"
 )
 
 # List of optional models (for image generation)
