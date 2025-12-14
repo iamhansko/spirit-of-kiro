@@ -12,11 +12,20 @@ else
   echo -e "${GREEN}$(aws sts get-caller-identity --query 'Arn' --output text | cut -d'/' -f2-) 권한으로 작업을 시작합니다."
 fi
 
-docker compose down
-docker image rm amazon/dynamodb-local
-docker image rm amazon/amazon-ecs-local-container-endpoints
-docker image rm spirit-of-kiro-server
-docker image rm spirit-of-kiro-client
+if command -v docker &> /dev/null; then
+    CONTAINER_CMD="docker"
+elif command -v finch &> /dev/null; then
+    CONTAINER_CMD="finch"
+else
+    echo -e "${RED}오류: Docker 또는 Finch가 설치되어 있지 않습니다.${NC}"
+    exit 1
+fi
+
+$CONTAINER_CMD compose down
+$CONTAINER_CMD image rm amazon/dynamodb-local
+$CONTAINER_CMD image rm amazon/amazon-ecs-local-container-endpoints
+$CONTAINER_CMD image rm spirit-of-kiro-server
+$CONTAINER_CMD image rm spirit-of-kiro-client
 
 export REGION=us-east-1
 export COGNITO_STACK_NAME=game-auth
