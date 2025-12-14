@@ -42,6 +42,7 @@ $CONTAINER_CMD compose down || true
 if [ "$CONTAINER_CMD" = "docker" ]; then
     nohup $CONTAINER_CMD compose up --watch --remove-orphans --timeout 0 --force-recreate > /dev/null &
 else
+    $CONTAINER_CMD compose build
     $CONTAINER_CMD compose up -d --force-recreate
 fi
 
