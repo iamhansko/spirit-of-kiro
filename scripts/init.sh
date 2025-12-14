@@ -42,7 +42,7 @@ $CONTAINER_CMD compose down || true
 if [ "$CONTAINER_CMD" = "docker" ]; then
     nohup $CONTAINER_CMD compose up --watch --remove-orphans --timeout 0 --force-recreate > /dev/null &
 else
-    $CONTAINER_CMD -d --force-recreate
+    $CONTAINER_CMD compose up -d --force-recreate
 fi
 
 echo -e "${YELLOW}도커 컨테이너가 준비될 때까지 대기 중입니다...${NC}"
