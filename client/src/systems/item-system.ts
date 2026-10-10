@@ -1,6 +1,7 @@
 import { type Ref, computed, ref } from 'vue'
 import { useGameStore } from '../stores/game';
 import type { SocketSystem } from './socket-system';
+import genericImage from '../assets/generic.png';
 
 export interface Item {
   id: string
@@ -42,7 +43,7 @@ export class ItemSystem {
         id: itemId,
         name: 'Loading...',
         description: 'This item is still loading...',
-        imageUrl: '/src/assets/generic.png'
+        imageUrl: genericImage
       }
       const loadingItemRef = ref(loadingItem)
       this.items.set(itemId, loadingItemRef)

@@ -6,6 +6,7 @@ import ghostNorth from '../assets/kiro-ghost/north.png';
 import ghostEast from '../assets/kiro-ghost/east.png';
 import ghostSouth from '../assets/kiro-ghost/south.png';
 import ghostSouthwest from '../assets/kiro-ghost/southwest.png';
+import genericImage from '../assets/generic.png';
 import { storeToRefs } from 'pinia';
 import { getRarityClass } from '../utils/items';
 
@@ -410,7 +411,7 @@ watch(() => gameStore.interactionLocked, (newValue) => {
       }">
       <div class="item-container ghost-glow" :class="rarityClass">
         <img 
-          :src="heldItem.imageUrl || '/src/assets/generic.png'" 
+          :src="heldItem.imageUrl || genericImage" 
           :alt="heldItem.name"
           class="held-item-image"
         />

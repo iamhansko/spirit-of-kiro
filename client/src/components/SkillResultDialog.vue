@@ -4,6 +4,7 @@ import { useGameStore } from '../stores/game';
 import ItemPreview from './ItemPreview.vue';
 import { getRarityClass } from '../utils/items';
 import { useEscapeKeyHandler } from '../composables/useEscapeKeyHandler';
+import genericImage from '../assets/generic.png';
 
 const store = useGameStore();
 
@@ -199,7 +200,7 @@ watch(visible, (newValue) => {
         <!-- Tool item on the left -->
         <div v-if="skillInvocationData?.tool" class="fusion-item tool-item">
           <div class="item-wrapper" :class="getRarityClass(skillInvocationData.tool.value)">
-            <img :src="skillInvocationData.tool.imageUrl || '/src/assets/generic.png'" class="item-image" :alt="skillInvocationData.tool.name" />
+            <img :src="skillInvocationData.tool.imageUrl || genericImage" class="item-image" :alt="skillInvocationData.tool.name" />
           </div>
           <div class="fusion-label">{{ skillInvocationData.tool.name }}</div>
         </div>
@@ -221,7 +222,7 @@ watch(visible, (newValue) => {
             }"
           >
             <div class="item-wrapper" :class="getRarityClass(target.value)">
-              <img :src="target.imageUrl || '/src/assets/generic.png'" class="item-image" :alt="target.name" />
+              <img :src="target.imageUrl || genericImage" class="item-image" :alt="target.name" />
             </div>
             <div class="fusion-label">{{ target.name }}</div>
           </div>
@@ -252,7 +253,7 @@ watch(visible, (newValue) => {
               @mouseleave="handleToolMouseLeave"
             >
               <div class="item-wrapper" :class="getRarityClass(resultData.tool.value)">
-                <img :src="resultData.tool.imageUrl || '/src/assets/generic.png'" class="item-image" :alt="resultData.tool.name" />
+                <img :src="resultData.tool.imageUrl || genericImage" class="item-image" :alt="resultData.tool.name" />
               </div>
             </div>
           </div>

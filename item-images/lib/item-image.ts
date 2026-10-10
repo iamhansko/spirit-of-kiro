@@ -1,6 +1,7 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { S3_CONFIG, CLOUDFRONT_CONFIG } from '../config';
+import sharp from 'sharp';
+import { S3_CONFIG, CLOUDFRONT_CONFIG, BEDROCK_IMAGE_CONFIG } from '../config';
 import { nearestMatch, storeKeyValue } from '../state/vector-store';
 
 const IMAGES_BUCKET_NAME = S3_CONFIG.bucketName;
@@ -13,29 +14,26 @@ if (!CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME) {
   throw new Error('CLOUDFRONT_DOMAIN environment variable is required');
 }
 
-const bedrockRuntime = new BedrockRuntimeClient({ region: "us-east-1" });
+// The size every item image is stored at. The Stability models take an aspect ratio rather than a size and
+// return 1024px or more, about 2 MB per PNG, so the image is resized before it is uploaded.
+const IMAGE_SIZE = 320;
+
+const bedrockRuntime = new BedrockRuntimeClient({ region: BEDROCK_IMAGE_CONFIG.region });
 const s3Client = new S3Client();
 
 export async function generateImage(prompt) {
   const params = {
-    modelId: 'amazon.nova-canvas-v1:0',
+    modelId: BEDROCK_IMAGE_CONFIG.modelId,
     contentType: 'application/json',
     accept: 'application/json',
+    // Stability AI text-to-image request body, shared by Stable Image Core, Stable Image Ultra and Stable
+    // Diffusion 3.5 Large (https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html)
     body: JSON.stringify({
-      taskType: "TEXT_IMAGE", 
-      textToImageParams: {
-        text: prompt,
-        negativeText: 'shadow, floor, human, person, realistic'
-      },
-      imageGenerationConfig: {
-        cfgScale: 9.9,
-        seed: Math.floor(Math.random() * 1000000),
-        quality: "standard", 
-        // Smallest possible size for Nova canvas (https://docs.aws.amazon.com/nova/latest/userguide/image-gen-access.html#image-gen-resolutions)
-        width: 320, 
-        height: 320,
-        numberOfImages: 1
-      }
+      prompt,
+      negative_prompt: 'shadow, floor, human, person, realistic',
+      aspect_ratio: '1:1',
+      output_format: 'png',
+      seed: Math.floor(Math.random() * 4294967294)
     })
   };
 
@@ -43,6 +41,15 @@ export async function generateImage(prompt) {
     const command = new InvokeModelCommand(params);
     const response = await bedrockRuntime.send(command);
     const responseBody = JSON.parse(new TextDecoder().decode(response.body));
+    // null means the image was generated; anything else ("Filter reason: prompt", "Inference error", ...)
+    // comes back with a placeholder or no image at all.
+    const finishReason = responseBody.finish_reasons?.[0];
+    if (finishReason !== null && finishReason !== undefined) {
+      throw new Error(`Image generation did not finish: ${finishReason}`);
+    }
+    if (!responseBody.images?.[0]) {
+      throw new Error('Image generation returned no image');
+    }
     return responseBody.images[0];
   } catch (error) {
     console.error('Error generating image:', error);
@@ -50,9 +57,15 @@ export async function generateImage(prompt) {
   }
 }
 
+export async function resizeImage(imageData) {
+  return sharp(Buffer.from(imageData, 'base64'))
+    .resize(IMAGE_SIZE, IMAGE_SIZE)
+    .png()
+    .toBuffer();
+}
+
 export async function uploadToS3(imageData, fileName) {
-  // Resize the base64 image to 320x320 pixels
-  const imageBuffer = Buffer.from(imageData, 'base64');
+  const imageBuffer = await resizeImage(imageData);
 
   const params = {
     Bucket: IMAGES_BUCKET_NAME,
@@ -132,7 +145,9 @@ export async function getImage(item, similarityThreshold = 0.25) {
       { id: item.id, text: itemKey }  // Store item metadata
     );
     
-    console.log(`NEW: "${item.icon}" Closest match "${similarImage.value.key_text}" with score ${similarImage.value.score}: ${imageUrl}`);
+    // similarImage is undefined while the vector index is still empty; reading through it unguarded threw
+    // here after the image had been uploaded and stored, so the first image ever generated came back as a 500.
+    console.log(`NEW: "${item.icon}" Closest match "${similarImage?.value?.key_text}" with score ${similarImage?.value?.score}: ${imageUrl}`);
     return imageUrl;
   } catch (error) {
 
