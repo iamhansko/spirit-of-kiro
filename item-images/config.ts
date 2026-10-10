@@ -40,6 +40,14 @@ export const CLOUDFRONT_CONFIG = {
   domain: getEnv('CLOUDFRONT_DOMAIN'),
 };
 
+// The text-to-image model and the region it is invoked in. The request body in lib/item-image.ts is the
+// Stability AI text-to-image format, which Stable Image Core, Stable Image Ultra and Stable Diffusion 3.5 Large
+// share. Amazon Nova Canvas, which this service used before, reached end of life on 2026-09-30.
+export const BEDROCK_IMAGE_CONFIG = {
+  modelId: getEnv('BEDROCK_IMAGE_MODEL_ID') || 'stability.stable-image-core-v1:1',
+  region: getEnv('BEDROCK_IMAGE_REGION') || 'us-west-2',
+};
+
 export const REDIS_CONFIG = {
   host: getEnv('REDIS_HOST') || 'localhost',
   port: 6379

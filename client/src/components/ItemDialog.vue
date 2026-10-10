@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useGameStore } from '../stores/game';
 import { getRarityClass } from '../utils/items';
 import { useEscapeKeyHandler } from '../composables/useEscapeKeyHandler';
+import genericImage from '../assets/generic.png';
 
 const store = useGameStore();
 
@@ -17,7 +18,7 @@ const currentItem = computed(() => {
 });
 
 // Computed properties for the dialog
-const imageUrl = computed(() => currentItem.value?.imageUrl || '/src/assets/generic.png');
+const imageUrl = computed(() => currentItem.value?.imageUrl || genericImage);
 
 // Determine CSS class based on item value
 const rarityClass = computed(() => {

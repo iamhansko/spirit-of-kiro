@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { getRarityClass } from '../utils/items';
 import type { Item } from '../systems/item-system';
+import genericImage from '../assets/generic.png';
 
 const props = defineProps<{
   item: Item | null;
@@ -15,7 +16,7 @@ const props = defineProps<{
 }>();
 
 // Computed properties for the preview
-const imageUrl = computed(() => props.item?.imageUrl || '/src/assets/generic.png');
+const imageUrl = computed(() => props.item?.imageUrl || genericImage);
 
 // Determine CSS class based on item value
 const rarityClass = computed(() => {

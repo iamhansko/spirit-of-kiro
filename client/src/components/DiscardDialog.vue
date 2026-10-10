@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useGameStore } from '../stores/game';
 import { useEscapeKeyHandler } from '../composables/useEscapeKeyHandler';
+import genericImage from '../assets/generic.png';
 
 const store = useGameStore();
 
@@ -10,7 +11,7 @@ const visible = ref(false);
 const currentItem = ref<any>(null);
 
 // Computed properties for the dialog
-const imageUrl = computed(() => currentItem.value?.imageUrl || '/src/assets/generic.png');
+const imageUrl = computed(() => currentItem.value?.imageUrl || genericImage);
 
 function closeDialog() {
   visible.value = false;

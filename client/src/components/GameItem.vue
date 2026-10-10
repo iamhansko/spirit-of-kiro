@@ -3,6 +3,7 @@ import { type PhysicsProperties } from '../utils/physics';
 import { onMounted, onUnmounted, computed } from 'vue';
 import { useGameStore } from '../stores/game';
 import { getRarityClass } from '../utils/items';
+import genericImage from '../assets/generic.png';
 
 const store = useGameStore();
 
@@ -30,7 +31,7 @@ const item = computed(() => store.useItem(props.props.itemId).value);
 // No dialog state needed anymore
 
 // Use the item's imageUrl if available, otherwise use generic.png
-const icon = computed(() => item.value?.imageUrl || '/src/assets/generic.png');
+const icon = computed(() => item.value?.imageUrl || genericImage);
 
 // Use the shared utility function for rarity class
 const rarityClass = computed(() => {
