@@ -14,6 +14,10 @@ const corsHeaders = {
 // Main server
 const server = serve({
   port: PORT,
+  // Bun closes a request after 10 idle seconds by default. A new image is an embedding, a text-to-image call
+  // of around 10 seconds (up to three attempts) and an upload, so the caller got a 502 from the load balancer
+  // while the image was still uploaded and stored. 60 matches the load balancer's own idle timeout.
+  idleTimeout: 60,
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
     const method = req.method;
